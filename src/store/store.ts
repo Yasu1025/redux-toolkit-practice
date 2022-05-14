@@ -3,7 +3,7 @@ import cocktailSlice from "./slices/cocktailSlice";
 
 export const store = configureStore({
   reducer: {
-    cocktai: cocktailSlice,
+    cocktail: cocktailSlice,
   },
 });
 

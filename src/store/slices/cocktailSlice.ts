@@ -1,8 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Cocktail } from "../../models/Cocktail";
+import { RootState } from "../store";
+import axios from "axios";
 
-interface IFState {
-  cocktails: any[]; // TODO
-  cocktail: any[]; // TODO
+export interface IFState {
+  cocktails: Cocktail[];
+  cocktail: Cocktail[];
   loading: boolean;
   error: any;
 }
@@ -17,16 +20,20 @@ const initialState: IFState = {
 export const fetchAsyncCocktails = createAsyncThunk(
   "cocktails/fetch",
   async () => {
-    return fetch(
-      "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
-    ).then((res) => res.json());
+    return axios
+      .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=")
+      .then((res) => res.data);
   }
 );
 
 const cocktailSlice = createSlice({
   name: "cocktail",
   initialState,
-  reducers: {},
+  reducers: {
+    setError: (state, { payload }) => {
+      state.error = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncCocktails.pending, (state, _) => {
       state.loading = true;
@@ -41,5 +48,12 @@ const cocktailSlice = createSlice({
     });
   },
 });
+
+export const { setError } = cocktailSlice.actions;
+
+export const selectCocktails = (state: RootState) => state.cocktail.cocktails;
+export const selectCocktail = (state: RootState) => state.cocktail.cocktail;
+export const selectLoading = (state: RootState) => state.cocktail.loading;
+export const selectError = (state: RootState) => state.cocktail.error;
 
 export default cocktailSlice.reducer;
