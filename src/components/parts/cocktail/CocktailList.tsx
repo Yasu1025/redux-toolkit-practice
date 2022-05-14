@@ -3,12 +3,12 @@ import {
   fetchAsyncCocktails,
   selectCocktails,
   setError,
-} from "../../store/slices/cocktailSlice";
+} from "../../../store/slices/cocktailSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { Cocktail } from "../../models/Cocktail";
-import SingleCocktail from "./SingleCocktail";
-import { selectLoading } from "../../store/slices/cocktailSlice";
+import { AppDispatch } from "../../../store/store";
+import { Cocktail } from "../../../models/Cocktail";
+import CocktailCard from "./CocktailCard";
+import { selectLoading } from "../../../store/slices/cocktailSlice";
 
 const CocktailList: VFC = memo(() => {
   const cocktails = useSelector(selectCocktails);
@@ -33,7 +33,7 @@ const CocktailList: VFC = memo(() => {
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {cocktails.map((cocktail: Cocktail) => (
-            <SingleCocktail
+            <CocktailCard
               key={cocktail.idDrink}
               id={cocktail.idDrink}
               name={cocktail.strDrink}

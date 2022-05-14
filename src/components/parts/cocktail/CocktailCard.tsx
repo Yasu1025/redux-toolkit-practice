@@ -9,7 +9,7 @@ type Props_type = {
   info: string | null;
 };
 
-const SingleCocktail: VFC<Props_type> = memo(
+const CocktailCard: VFC<Props_type> = memo(
   ({ id, name, image, glass, info }) => {
     return (
       <div className="col">
@@ -29,4 +29,4 @@ const SingleCocktail: VFC<Props_type> = memo(
   }
 );
 
-export default SingleCocktail;
+export default CocktailCard;
