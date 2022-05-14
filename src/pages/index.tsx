@@ -1,10 +1,10 @@
 import React, { VFC } from "react";
+import SearchInput from "../components/parts/SearchInput";
 
 const Home: VFC = () => {
   return (
     <div>
-      <h2>Home</h2>
-      {/** Search input */}
+      <SearchInput />
       {/** Cocktail list */}
     </div>
   );
