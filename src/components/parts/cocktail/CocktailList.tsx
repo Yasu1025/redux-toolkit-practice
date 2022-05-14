@@ -30,6 +30,8 @@ const CocktailList: VFC = memo(() => {
         <div className="spinner-grow" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
+      ) : !cocktails ? (
+        <h2>No Cocktails matched your search criteria...</h2>
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {cocktails.map((cocktail: Cocktail) => (

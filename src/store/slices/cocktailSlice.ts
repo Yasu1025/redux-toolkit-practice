@@ -35,6 +35,17 @@ export const fetchAsyncSingleCocktail = createAsyncThunk(
   }
 );
 
+export const fetchAsyncSearchCocktails = createAsyncThunk(
+  "cocktails/fetch/search",
+  async ({ searchStr }: { searchStr: string }) => {
+    return axios
+      .get(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchStr}`
+      )
+      .then((res) => res.data);
+  }
+);
+
 const cocktailSlice = createSlice({
   name: "cocktail",
   initialState,
@@ -71,6 +82,24 @@ const cocktailSlice = createSlice({
       state.loading = false;
       state.error = payload;
     });
+    // Search Cocktails
+    builder.addCase(fetchAsyncSearchCocktails.pending, (state, _) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      fetchAsyncSearchCocktails.fulfilled,
+      (state, { payload }) => {
+        state.cocktails = payload.drinks;
+        state.loading = false;
+      }
+    );
+    builder.addCase(
+      fetchAsyncSearchCocktails.rejected,
+      (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      }
+    );
   },
 });
 
